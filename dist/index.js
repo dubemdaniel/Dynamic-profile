@@ -12,6 +12,15 @@ const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3009 || "0.0.0.0";
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
+/*  HOME ROUTE */
+app.get("/", (_req, res) => {
+    res.status(200).json({
+        info: "Visit /me to see my profile details and a random cat fact ",
+        author: process.env.USER_NAME,
+        status: "online",
+        time: new Date().toISOString(),
+    });
+});
 // GET /me endpoint
 app.get('/me', async (_req, res) => {
     try {
@@ -55,7 +64,6 @@ app.get('/me', async (_req, res) => {
 app.use((_req, res) => {
     res.status(404).json({ error: 'Route not found' });
 });
-// Start server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
     console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);

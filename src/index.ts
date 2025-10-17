@@ -31,6 +31,16 @@ interface ProfileResponse {
   fact: string;
 }
 
+/*  HOME ROUTE */
+app.get("/", (_req: Request, res: Response) => {
+  res.status(200).json({
+    info: "Visit /me to see my profile details and a random cat fact ",
+    author: process.env.USER_NAME,
+    status: "online",
+    time: new Date().toISOString(),
+  });
+});
+
 // GET /me endpoint
 app.get('/me', async (_req: Request, res: Response) => {
   try {
@@ -87,7 +97,7 @@ app.use((_req: Request, res: Response) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
-// Start server
+
 app.listen(PORT,  () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
